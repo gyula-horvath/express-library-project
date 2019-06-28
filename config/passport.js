@@ -1,26 +1,29 @@
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/user');
-const config = require('../config/database');
 const bcrypt = require('bcryptjs');
 
 module.exports = function(passport) {
   // Local Strategy
   passport.use(new LocalStrategy(function(username, password, done) {
     //Match Username
+    console.log("searching for user...");
     let query = {username: username};
     User.findOne(query, function(err, user) {
       if(err) throw err;
       if(!user) {
+        console.log("not a user");
         return done(null, false, {message: 'Incorrect username'});
       }
-
+      console.log("User found.");
       //Match Password
-      bcrypt.compare(password, user.password, function(err, isMatch) {
-        if (err) throw err;
-        if(isMatch) {
+      bcrypt.compare(password, user.password, function(err, isMatch){
+        console.log("Comparing passwords...")
+        if(err) throw err;
+        if(isMatch){
           return done(null, user);
         } else {
-          return done(null, false, {message: 'Incorrect password'});
+          console.log("Wrong password");
+          return done(null, false, {message: 'Wrong password'});
         }
       });
     });

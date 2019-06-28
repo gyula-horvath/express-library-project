@@ -13,18 +13,9 @@ router.post('/register', user_controller.user_create_post);
 router.get('/login', user_controller.user_login_get);
 
 //POST request for user login.
-router.post('/login', function(req, res, next) {
-  passport.authenticate('local', { 
-    successRedirect: '/',
-    failureRedirect: '/users/login',
-    failureFlash: true})(req, res, next);
-});
+router.post('/login', user_controller.user_login_post);
 
-// logout
-router.get('/logout', function(req, res){
-  req.logout();
-  req.flash('success', 'You are logged out');
-  res.redirect('/users/login');
-});
+// Logout
+router.get('/logout', user_controller.user_logout);
 
 module.exports = router;

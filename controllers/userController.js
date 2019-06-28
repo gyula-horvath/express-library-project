@@ -88,9 +88,16 @@ exports.user_login_get = function(req, res) {
 };
 
 //Handle User Login on POST
-/*exports.user_login_post = function(req, res, next) {
+exports.user_login_post = function(req, res, next) {
   passport.authenticate('local', { 
-    successRedirect: '/',
+    successRedirect: '/catalog/',
     failureRedirect: '/users/login',
     failureFlash: true})(req, res, next);
-};*/
+};
+
+// Handle User Logout
+exports.user_logout = function(req, res){
+  req.logout();
+  req.flash('success', 'You are logged out');
+  res.redirect('/users/login');
+};
