@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const limiter = require('../config/authenticator');
 
 var user_controller = require('../controllers/userController');
 
@@ -17,5 +18,10 @@ router.post('/login', user_controller.user_login_post);
 
 // Logout
 router.get('/logout', user_controller.user_logout);
+
+// Load admin page
+router.get('/admin', limiter.isAdmin, user_controller.admin_page_get);
+
+
 
 module.exports = router;

@@ -101,3 +101,8 @@ exports.user_logout = function(req, res){
   req.flash('success', 'You are logged out');
   res.redirect('/users/login');
 };
+
+// Load admin page on GET.
+exports.admin_page_get = function(req, res, next) {
+  res.render('admin');
+}

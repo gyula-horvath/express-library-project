@@ -27,6 +27,12 @@ html(lang='en')
               if user
                 li
                   a(href='/users/logout') Log out
+              else
+                li
+                  a(href='/users/register') Register
+                li
+                  a(href='/users/login') Log in
+              if user.role === 'ADMIN'
                 hr
                 li
                   a(href='/catalog/author/create') Create new author
@@ -36,11 +42,6 @@ html(lang='en')
                   a(href='/catalog/book/create') Create new book
                 li
                   a(href='/catalog/bookinstance/create') Create new book-instance (copy)
-              else
-                li
-                  a(href='/users/register') Register
-                li
-                  a(href='/users/login') Log in
         div(class='col-sm-10 content')
           != messages('message', locals)
           block content
